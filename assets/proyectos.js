@@ -1,16 +1,25 @@
 /* Portfolio Ailen Rausch — datos compartidos por las tres variantes.
  * Fuente: carpeta de Drive «PORTFOLIO AILEN RAUSCH». Los textos de cada proyecto son las notas que dejó Ailen
- * (solo se corrigieron mayúsculas y tildes). La bio y los servicios son borrador: validar con ella.
+ * (solo se corrigieron mayúsculas y tildes). La bio es la de Ailen (nota del 2026-10-26); los servicios son
+ * borrador nuestro: validar con ella.
  * imgs: [ruta sin extensión, ancho, alto] → existe ruta + '.webp' (2000px) y ruta + '-s.webp' (720px).
  * videos: [mp4, poster, ancho, alto]. anioAConfirmar: el año no salió de la metadata, es estimado.
- * mail / instagram vacíos: faltan los datos de contacto. */
+ * foto vacía: Ailen todavía no mandó la foto para «About me». */
 window.PERFIL = {
  "nombre": "Ailen Rausch",
- "oficio": "Diseñadora de indumentaria y textil · Estilista",
+ "oficio": "Diseñadora de indumentaria y textil · Estilista · Fotógrafa",
  "base": "Córdoba, Argentina",
- "bio": "Soy diseñadora de indumentaria y textil y estilista, con base en Córdoba, Argentina. Visto a artistas y bandas —de salas chicas a Cosquín Rock y Lollapalooza—, diseño colecciones con mi marca, Yegua Studio, y produzco fotografía de moda.",
- "mail": "",
- "instagram": ""
+ "bio": "Soy diseñadora de indumentaria y textil, estilista y fotógrafa, con base en Córdoba, Argentina. Mi trabajo conecta moda, imagen y dirección creativa para construir identidades visuales y universos conceptuales con carácter propio.",
+ "bioLarga": [
+  "Soy diseñadora de indumentaria y textil, estilista y fotógrafa, con base en Córdoba, Argentina. Mi trabajo conecta moda, imagen y dirección creativa para construir identidades visuales y universos conceptuales con carácter propio.",
+  "Mi experiencia abarca el diseño de colecciones, el desarrollo técnico, la curaduría visual, la fotografía, el estilismo y la creación de contenido. He vestido artistas y bandas en escenarios y festivales como Cosquín Rock y Lollapalooza, desarrollado colecciones para mi marca Yegua Studio y producido proyectos de fotografía de moda.",
+  "Me adapto a la identidad y las necesidades de cada proyecto, buscando transformar ideas en narrativas visuales auténticas, coherentes y memorables."
+ ],
+ "mail": "rauschailen@gmail.com",
+ "instagram": "ailen.rausch",
+ "telefono": "+54 9 343 470-5724",
+ "whatsapp": "5493434705724",
+ "foto": ""
 };
 window.SERVICIOS = [
  {
@@ -495,7 +504,12 @@ window.PROYECTOS = [
     "img/sartessa/16",
     1414,
     2000
-   ]
+   ],
+  [
+   "img/sartessa/17",
+   2200,
+   1349
+  ]
   ],
   "videos": [],
   "creditos": ""

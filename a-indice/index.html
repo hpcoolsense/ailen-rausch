@@ -213,6 +213,11 @@
     return `<a href="${m}">Mail</a><a href="${ig}">Instagram</a>`;
   }
 
+  // Mail e Instagram de la cabecera salen de los datos
+  const [hm, hig] = contactLinks().match(/href="([^"]*)"/g).map(h => h.slice(6, -1));
+  document.querySelector('[data-contact="mail"]').href = hm;
+  document.querySelector('[data-contact="instagram"]').href = hig;
+
   // El índice se marca cuando su proyecto está a la vista
   const links = [...document.querySelectorAll('.index a')];
   const seen = new Map();
