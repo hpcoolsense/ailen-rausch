@@ -134,38 +134,41 @@
   .ab-id dd { color: #24211d; overflow-wrap: anywhere; }
   .ab-id a:hover { color: var(--blue); }
 
-  /* Sobre de entrada: se abre al tocarlo (o al scrollear), sale la carta y se revela el sitio */
-  .sobre {
-    position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; overflow: hidden;
+  /* Sobre de entrada atado al scroll: bajando se abre, subiendo se vuelve a cerrar.
+     .sobre es la pista (alta) y .sb-stage queda fija mientras dura; el JS traduce el avance (0 a 1) en la animación. */
+  .sobre { position: relative; height: 290vh; background: var(--bg); }
+  .sb-stage {
+    position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: grid; place-items: center;
     background: radial-gradient(120% 90% at 50% 45%, #22201d 0%, var(--bg) 72%);
-    transition: opacity .9s ease, visibility 0s linear .9s;
   }
-  .sobre.gone { opacity: 0; visibility: hidden; }
   .sobre .sb-k { position: absolute; top: 18px; left: 48px; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
   .sobre .sb-skip { position: absolute; top: 14px; right: var(--pad); color: var(--mute); font-size: 14px; }
   .sobre .sb-skip:hover { color: var(--ink); font-style: italic; }
-  .sobre .sb-hint { position: absolute; left: 0; right: 0; bottom: 26px; text-align: center; color: var(--mute); font-style: italic; animation: hint 2.4s ease-in-out infinite; transition: opacity .3s; }
-  @keyframes hint { 50% { opacity: .35; } }
-  .env {
-    position: relative; display: block; width: min(84vw, 780px); aspect-ratio: 1.7; perspective: 1800px;
-    transition: transform 1s cubic-bezier(.2,.7,.2,1) .5s;
-  }
+  .sobre .sb-hint { position: absolute; left: 0; right: 0; bottom: 26px; text-align: center; color: var(--mute); font-style: italic; }
+  .sobre .sb-hint span { display: inline-block; animation: hint 2.4s ease-in-out infinite; }
+  @keyframes hint { 50% { opacity: .4; transform: translateY(4px); } }
+  .env { position: relative; display: block; width: min(84vw, 780px); aspect-ratio: 1.7; perspective: 1800px; }
   .env > span { position: absolute; inset: 0; display: block; }
   .env .back { background: #2a2825; box-shadow: 0 40px 80px rgba(0,0,0,.6); }
   .env .letter {
     inset: 5% 4%; z-index: 2; display: flex; flex-direction: column; align-items: center; padding-top: 6%;
     background: var(--grain), #efe9de; color: #24211d; text-align: center; box-shadow: 0 -8px 26px rgba(0,0,0,.28);
-    transition: transform 1.05s cubic-bezier(.2,.7,.2,1) .55s;
   }
   .env .letter small { font-size: clamp(9px, 1.35vw, 13.5px); letter-spacing: .16em; text-transform: uppercase; }
   .env .letter b { font: 400 clamp(46px, 9.2vw, 108px)/1.05 "Pinyon Script", cursive; color: var(--blue); margin: 2% 0 1.5%; }
+  /* adentro del sobre la carta está en sombra; se aclara a medida que se abre la solapa */
+  .env .letter::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: var(--sombra, 1);
+    background: linear-gradient(#141311, rgba(20,19,17,.88) 40%, rgba(20,19,17,.7)); }
+  .env .letter .pie { margin-top: auto; padding-bottom: 5%; font-style: italic; font-size: clamp(11px, 1.5vw, 15px); color: #7a7368; }
   .env .front { z-index: 3; background: var(--grain), linear-gradient(170deg, #5d5953, #4c4843); clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%); }
   .env .front svg { width: 100%; height: 100%; }
   .env .flap {
     z-index: 4; background: var(--grain), linear-gradient(180deg, #66625b, #57534c); clip-path: polygon(0 0, 100% 0, 50% 56%);
-    transform-origin: 50% 0; transition: transform .8s cubic-bezier(.5,0,.3,1), z-index 0s linear .4s;
+    transform-origin: 50% 0;
   }
-  .env .txt { z-index: 5; color: #f4f0e9; pointer-events: none; transition: opacity .35s; }
+  /* pasado los 90°, la solapa muestra su cara interna y queda detrás de la carta */
+  .env .flap.in { z-index: 1; background: var(--grain), linear-gradient(0deg, #3e3b36, #34312d); }
+  .env .txt { z-index: 5; color: #f4f0e9; pointer-events: none; }
   .env .txt span { position: absolute; }
   .env .txt .t1 { top: 17%; left: 0; right: 0; text-align: center; font-size: clamp(10px, 1.5vw, 15px); letter-spacing: .14em; }
   .env .txt .scr { top: 24%; left: 0; right: 0; text-align: center; font: 400 clamp(58px, 13vw, 150px)/1 "Pinyon Script", cursive; text-shadow: 0 3px 22px rgba(0,0,0,.28); }
@@ -174,14 +177,9 @@
   .env .txt .bl, .env .txt .br { bottom: 5%; font-size: clamp(9px, 1.2vw, 12.5px); opacity: .75; }
   .env .txt .bl { left: 3.5%; }
   .env .txt .br { right: 3.5%; }
-  .sobre.open .env { transform: translateY(16%); }
-  .sobre.open .env .txt { opacity: 0; }
-  .sobre.open .env .flap { transform: rotateX(180deg); z-index: 1; }
-  .sobre.open .env .letter { transform: translateY(-54%); }
-  .sobre.open .sb-hint { opacity: 0; animation: none; }
-  @media (prefers-reduced-motion: reduce) {
-    .sobre, .env, .env .letter, .env .flap, .env .txt { transition-duration: .01s; transition-delay: 0s; }
-  }
+  /* Mientras el sobre ocupa la pantalla, el menú y el nombre lateral se esconden */
+  .side, .nav, .variantes { transition: opacity .4s; }
+  body.en-sobre .side, body.en-sobre .nav, body.en-sobre .variantes { opacity: 0; pointer-events: none; }
   footer { padding: 20px var(--pad) 26px 48px; display: flex; justify-content: space-between; color: var(--mute); border-top: 1px solid var(--line); }
 
   /* Serie: galería horizontal (#/id) */
@@ -247,28 +245,30 @@
   }
 </style>
 </head>
-<body>
+<body class="en-sobre">
 
-<div class="sobre" id="sobre" role="dialog" aria-label="Portafolio de Ailen Rausch">
-  <p class="sb-k">Diseño de indumentaria / Estilismo / Fotografía</p>
-  <button class="sb-skip" type="button" id="sb-skip">saltar</button>
-  <button class="env" type="button" id="env" aria-label="Abrir el portafolio">
-    <span class="back"></span>
-    <span class="letter" aria-hidden="true"><small>{ portafolio — 2026 }</small><b>Ailen Rausch</b><small>estilismo · diseño · fotografía</small></span>
-    <span class="front"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 100 L50 50 L100 100" fill="none" stroke="rgba(255,255,255,.13)" stroke-width="1" vector-effect="non-scaling-stroke"/>
-      <path d="M0 100.6 L50 51 L100 100.6" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="1" vector-effect="non-scaling-stroke"/>
-    </svg></span>
-    <span class="flap"></span>
-    <span class="txt" aria-hidden="true">
-      <span class="t1">{ estilismo — diseño — fotografía }</span>
-      <span class="scr">Portafolio</span>
-      <span class="l">(ailen rausch)</span><span class="r">(2026)</span>
-      <span class="bl">@ailen.rausch</span><span class="br">rauschailen@gmail.com</span>
-    </span>
-  </button>
-  <p class="sb-hint">tocá el sobre para abrirlo</p>
-</div>
+<section class="sobre" id="sobre" aria-label="Portafolio de Ailen Rausch">
+  <div class="sb-stage">
+    <p class="sb-k">Diseño de indumentaria / Estilismo / Fotografía</p>
+    <button class="sb-skip" type="button" id="sb-skip">saltar</button>
+    <button class="env" type="button" id="env" aria-label="Abrir el portafolio">
+      <span class="back"></span>
+      <span class="letter" aria-hidden="true"><small>{ portafolio — 2026 }</small><b>Ailen Rausch</b><small>estilismo · diseño · fotografía</small><i class="pie">Córdoba, Argentina</i></span>
+      <span class="front"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 100 L50 50 L100 100" fill="none" stroke="rgba(255,255,255,.13)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+        <path d="M0 100.6 L50 51 L100 100.6" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+      </svg></span>
+      <span class="flap"></span>
+      <span class="txt" aria-hidden="true">
+        <span class="t1">{ estilismo — diseño — fotografía }</span>
+        <span class="scr">Portafolio</span>
+        <span class="l">(ailen rausch)</span><span class="r">(2026)</span>
+        <span class="bl">@ailen.rausch</span><span class="br">rauschailen@gmail.com</span>
+      </span>
+    </button>
+    <p class="sb-hint">bajá para abrir el sobre <span>↓</span></p>
+  </div>
+</section>
 
 <a class="side" href="#">ailen — rausch</a>
 <nav class="nav" aria-label="Secciones">
@@ -422,31 +422,58 @@
   });
   route();
 
-  // Sobre: un enlace directo a un proyecto (#/id) lo saltea
+  // Sobre atado al scroll. p = cuánto se recorrió la pista: 0 cerrado, 1 la carta sola en el centro.
+  // El avance se suaviza (cur persigue a tgt en cada frame) para que la ruedita no lo mueva a saltos.
   const sb = document.getElementById('sobre');
+  const q = sel => sb.querySelector(sel);
+  const stage = q('.sb-stage'), env = q('.env'), flap = q('.flap'), letter = q('.letter'), txt = q('.txt'), hint = q('.sb-hint');
+  const shell = [q('.back'), q('.front'), flap];
+  const chrome = [q('.sb-k'), q('.sb-skip')];   // rótulo y «saltar»: se van con el sobre para dejarle lugar al menú
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const fin = () => {
-    if (sb.classList.contains('gone')) return;
-    sb.classList.add('gone');
-    if (sr.hidden) document.documentElement.style.overflow = '';
-    setTimeout(() => sb.remove(), 1000);
-  };
-  const abrir = () => {
-    if (sb.classList.contains('open')) return;
-    sb.classList.add('open');
-    setTimeout(fin, reduce ? 400 : 2500);
-  };
-  if (location.hash.startsWith('#/')) sb.remove();
-  else {
-    document.documentElement.style.overflow = 'hidden';
-    document.getElementById('env').addEventListener('click', abrir);
-    document.getElementById('sb-skip').addEventListener('click', fin);
-    sb.addEventListener('wheel', abrir, { passive: true });
-    sb.addEventListener('touchmove', abrir, { passive: true });
-    document.addEventListener('keydown', e => {
-      if (document.body.contains(sb) && ['ArrowDown', 'PageDown', ' '].includes(e.key) && e.target === document.body) abrir();
-    });
+  const clamp = x => Math.min(1, Math.max(0, x));
+  const seg = (p, a, b) => clamp((p - a) / (b - a));
+  const inOut = t => t < .5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
+  const out = t => 1 - (1 - t) ** 3;
+  const range = () => Math.max(1, sb.offsetHeight - stage.offsetHeight);
+  const target = () => clamp((scrollY - sb.offsetTop) / range());
+
+  function render(p) {
+    const a = 180 * inOut(seg(p, .08, .42));   // 1. se abre la solapa
+    const r = out(seg(p, .36, .70));            // 2. sube la carta y el sobre baja
+    const c = inOut(seg(p, .68, .97));          // 3. el sobre se va para abajo y la carta queda sola, centrada
+    txt.style.opacity = 1 - seg(p, 0, .1);
+    hint.style.opacity = 1 - seg(p, 0, .05);
+    flap.style.transform = `rotateX(${-a}deg)`;
+    flap.classList.toggle('in', a > 90);
+    flap.style.filter = `brightness(${(.7 + .3 * Math.abs(Math.cos(a * Math.PI / 180))).toFixed(3)})`;
+    // El sobre baja 18% y después sale de cuadro (102% más). La carta mide el 90% del sobre: con -77.3% de su
+    // alto compensa ese descenso y termina justo en el centro de la pantalla.
+    env.style.transform = `translateY(${18 * r + 102 * c}%) scale(${1 + .015 * Math.sin(Math.PI * seg(p, 0, .2))})`;
+    letter.style.transform = `translateY(${-56 * r - 77.3 * c}%) scale(${1 + .08 * c})`;
+    letter.style.setProperty('--sombra', (1 - seg(p, .12, .38)).toFixed(3));
+    shell.forEach(el => { el.style.opacity = 1 - seg(p, .86, .97); });
+    chrome.forEach(el => { el.style.opacity = 1 - seg(p, .8, .95); });
+    document.body.classList.toggle('en-sobre', p < .97);
   }
+  // Suavizado por tiempo (no por frame): se siente igual a 60 o a 120 Hz
+  let cur = target(), tgt = cur, raf = 0, last = 0;
+  function tick(t) {
+    const dt = last ? Math.min(.1, (t - last) / 1000) : 1 / 60;
+    last = t;
+    cur += (tgt - cur) * (reduce ? 1 : 1 - Math.exp(-dt / .15));
+    if (Math.abs(tgt - cur) < .0004) cur = tgt;
+    render(cur);
+    if (cur === tgt) { raf = 0; last = 0; } else raf = requestAnimationFrame(tick);
+  }
+  const onScroll = () => { tgt = target(); if (!raf) raf = requestAnimationFrame(tick); };
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  render(cur);
+  // Tocar el sobre lo abre scrolleando hasta el final de la pista (es la misma animación)
+  env.addEventListener('click', () => scrollTo({ top: sb.offsetTop + range(), behavior: 'smooth' }));
+  q('#sb-skip').addEventListener('click', () => document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' }));
+  // Un enlace directo a un proyecto (#/id) arranca con el sobre ya pasado
+  if (location.hash.startsWith('#/')) scrollTo(0, sb.offsetTop + sb.offsetHeight);
 })();
 </script>
 </body>
