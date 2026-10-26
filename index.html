@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ailen Rausch — tres variantes de web</title>
+<meta name="robots" content="noindex">
+<style>
+  :root { --bg: #f4f2ee; --ink: #161514; --mute: #77736c; --line: #dcd8d0; --card: #fff; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font: 400 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  img { max-width: 100%; height: auto; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 56px 24px 80px; }
+  header { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: end; padding-bottom: 36px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: clamp(34px, 4.6vw, 60px); line-height: 1; letter-spacing: -.02em; font-weight: 600; }
+  header p { color: var(--mute); max-width: 52ch; }
+  .vs { display: grid; gap: 28px; margin-top: 36px; }
+  .v { background: var(--card); border: 1px solid var(--line); display: grid; grid-template-columns: 1.55fr 1fr; overflow: hidden; }
+  .shots { position: relative; display: block; background: #e9e6e0; padding: 26px 26px 26px; }
+  .shots .d { width: 100%; display: block; box-shadow: 0 10px 34px rgba(0,0,0,.14); }
+  .shots .m { position: absolute; right: 14px; bottom: 14px; width: 22%; border: 4px solid #111; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.22); }
+  .info { padding: 30px 30px 28px; display: flex; flex-direction: column; gap: 14px; }
+  .info .k { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+  .info h2 { font-size: 30px; line-height: 1.05; font-weight: 600; letter-spacing: -.01em; }
+  .info dl { display: grid; grid-template-columns: 7.5em 1fr; gap: 8px 14px; font-size: 14px; }
+  .info dt { color: var(--mute); }
+  .info .go { margin-top: auto; display: inline-flex; align-self: flex-start; gap: 8px; padding: 11px 18px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 500; }
+  .info .go:hover { background: #3a3835; }
+  .pend { margin-top: 48px; display: grid; grid-template-columns: 1fr 2fr; gap: 40px; padding-top: 32px; border-top: 1px solid var(--line); }
+  .pend h3 { font-size: 20px; font-weight: 600; }
+  .pend ul { padding-left: 18px; display: grid; gap: 6px; color: #3c3a37; }
+  @media (max-width: 860px) {
+    header, .v, .pend { grid-template-columns: 1fr; }
+    header { gap: 16px; }
+    .shots { padding: 16px; }
+    .info { padding: 22px 18px 24px; }
+    .pend { gap: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Ailen Rausch<br>tres variantes de web</h1>
+    <p>Las tres usan el mismo material: 13 proyectos, unas 140 fotos y 9 clips de la carpeta de Drive de Ailen, con sus textos para cada trabajo. Lo que cambia es la forma de mostrarlo. Todas funcionan en celular.</p>
+  </header>
+
+  <div class="vs">
+    <article class="v">
+      <a class="shots" href="a-indice/index.html" aria-label="Abrir variante A">
+        <img class="d" src="assets/capturas/a-desktop.webp" alt="Variante A en escritorio" width="1200" height="750">
+        <img class="m" src="assets/capturas/a-mobile.webp" alt="Variante A en celular" width="360" height="779">
+      </a>
+      <div class="info">
+        <span class="k">Variante A</span>
+        <h2>Índice</h2>
+        <dl>
+          <dt>Inspirada en</dt><dd><a href="https://readymag.website/u2875291469/5505884/">Lou Vacquié</a>, la web de ejemplo que mandó Ailen</dd>
+          <dt>Cómo es</dt><dd>Blanca, silenciosa. Índice fijo de proyectos «AÑO_Nombre», fotos sueltas de distintos tamaños y una ficha en tres columnas por proyecto.</dd>
+          <dt>Va bien si</dt><dd>quiere algo muy parecido a lo que eligió ella, donde el trabajo hable solo.</dd>
+        </dl>
+        <a class="go" href="a-indice/index.html">Abrir variante A →</a>
+      </div>
+    </article>
+
+    <article class="v">
+      <a class="shots" href="b-revista/index.html" aria-label="Abrir variante B">
+        <img class="d" src="assets/capturas/b-desktop.webp" alt="Variante B en escritorio" width="1200" height="750">
+        <img class="m" src="assets/capturas/b-mobile.webp" alt="Variante B en celular" width="360" height="779">
+      </a>
+      <div class="info">
+        <span class="k">Variante B</span>
+        <h2>Revista</h2>
+        <dl>
+          <dt>Inspirada en</dt><dd><a href="https://032c.com">032c</a>, la revista de moda y cultura de Berlín</dd>
+          <dt>Cómo es</dt><dd>Grilla de placas, grotesca negra muy pesada y titulares en rojo. Cada proyecto es una nota, y los servicios aparecen grandes y numerados.</dd>
+          <dt>Va bien si</dt><dd>la prioridad es que se entienda rápido qué hace y que la contraten. Es la que más vende servicios.</dd>
+        </dl>
+        <a class="go" href="b-revista/index.html">Abrir variante B →</a>
+      </div>
+    </article>
+
+    <article class="v">
+      <a class="shots" href="c-campana/index.html" aria-label="Abrir variante C">
+        <img class="d" src="assets/capturas/c-desktop.webp" alt="Variante C en escritorio" width="1200" height="750">
+        <img class="m" src="assets/capturas/c-mobile.webp" alt="Variante C en celular" width="360" height="779">
+      </a>
+      <div class="info">
+        <span class="k">Variante C</span>
+        <h2>Campaña</h2>
+        <dl>
+          <dt>Inspirada en</dt><dd><a href="https://palomawool.com">Paloma Wool</a> (fotos a sangre, serif chica, nombre vertical) y <a href="https://www.artpartner.com">Art Partner</a>, la agencia de estilistas y fotógrafos (archivo en collage)</dd>
+          <dt>Cómo es</dt><dd>Oscura y cinematográfica. Abre con tres videos de Yegua Studio y cada proyecto se recorre como una tira de película. Los servicios cierran como créditos.</dd>
+          <dt>Va bien si</dt><dd>quiere la más impactante y la más alineada con su universo de cine.</dd>
+        </dl>
+        <a class="go" href="c-campana/index.html">Abrir variante C →</a>
+      </div>
+    </article>
+  </div>
+
+  <section class="pend">
+    <h3>Falta definir con Ailen</h3>
+    <ul>
+      <li>Mail e Instagram de contacto (los botones están, sin destino).</li>
+      <li>Año de H1, de la tesis (Sartessa) y de las fotos de Nahuel: no salieron de la metadata de los archivos.</li>
+      <li>Créditos de fotografía de cada proyecto. Solo se conocen @gggonzalolopez (Lollapalooza) y Lucas Vidart (TFG de Antonella).</li>
+      <li>Bio y textos de servicios: los redactamos nosotros a partir de su material; los textos de cada proyecto son los suyos.</li>
+      <li>Si quiere una foto suya en «Sobre mí»: en la carpeta no hay retrato de ella.</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>

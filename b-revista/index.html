@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ailen Rausch — Estilismo, diseño y fotografía de moda</title>
+<meta name="description" content="Ailen Rausch — diseñadora de indumentaria y textil y estilista. Córdoba, Argentina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<style>
+  /* Variante B · «Revista» — inspirada en 032c.com: placas en grilla, grotesca negra muy pesada,
+     titulares en rojo, rótulos chicos en mayúsculas debajo de cada imagen. */
+  :root {
+    --paper: #fff;
+    --ink: #0b0b0b;
+    --red: #e2231a;
+    --grey: #efefef;
+    --gap: 4px;
+    --pad: 16px;
+    --bar: 52px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--bar) + 8px); }
+  body {
+    background: var(--paper); color: var(--ink);
+    font: 400 15px/1.35 "Archivo", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img, video { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--grey); }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+  .cap { font-weight: 700; font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
+  .hl {
+    font-weight: 800; text-transform: uppercase; line-height: .93; letter-spacing: -.012em;
+    font-variation-settings: "wdth" 100;
+  }
+
+  /* Cabecera */
+  .mast {
+    position: sticky; top: 0; z-index: 40; height: var(--bar); background: var(--paper);
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 var(--pad);
+  }
+  .mast nav { display: flex; gap: 18px; font-weight: 700; font-size: 12.5px; }
+  .mast nav a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+  .mast nav a:hover { color: var(--red); }
+  .mast .r { justify-content: flex-end; }
+  .logo { font-weight: 900; font-size: 25px; letter-spacing: -.01em; font-variation-settings: "wdth" 112; }
+
+  /* Grilla de placas */
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); padding: 0 var(--gap); }
+  .grid + .grid, .grid + .sec, .sec + .grid { margin-top: var(--gap); }
+  .t { position: relative; overflow: hidden; background: var(--paper); }
+  .s2 { grid-column: span 2; }
+  .s3 { grid-column: span 3; }
+  .s4 { grid-column: span 4; }
+  .t.img > a, .t.img > div { display: block; height: 100%; }
+  .t.img img, .t.img video { transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+  .t.img a:hover img { transform: scale(1.025); }
+  .t.txt { padding: 22px; display: flex; flex-direction: column; }
+  .t.red { color: var(--red); }
+
+  .hero { height: calc(100svh - var(--bar) - var(--gap)); min-height: 560px; }
+  .hero .txt { justify-content: center; align-items: center; text-align: center; padding: 6vw; }
+  .hero h1 { font-size: clamp(42px, 5.4vw, 92px); }
+  .hero .deck { max-width: 46ch; margin-top: auto; font-weight: 700; font-size: 13px; line-height: 1.3; }
+  .hero .kick { margin-bottom: auto; }
+  .hero .mid { margin: auto 0; }
+
+  .card figure { background: var(--grey); aspect-ratio: 4 / 5; overflow: hidden; }
+  .card figure.contain img { object-fit: contain; padding: 8%; }
+  .card .cap { text-align: center; padding: 12px 6px 18px; }
+  .card:hover .cap { color: var(--red); }
+
+  .story { min-height: 66vh; }
+  .story .txt h2 { font-size: clamp(30px, 3.5vw, 58px); }
+  .story .txt h2 + p { margin-top: 18px; max-width: 52ch; font-size: 15px; }
+  .story .txt .more { margin-top: auto; padding-top: 24px; font-weight: 700; font-size: 12.5px; text-decoration: underline; text-underline-offset: 3px; }
+  .story .txt .more:hover { color: var(--red); }
+  .story .red h2 { text-align: center; margin: auto 0; }
+  .story .red p { text-align: center; margin: 0 auto; font-weight: 700; font-size: 13px; }
+  .tall { aspect-ratio: 3 / 4; }
+  .story .red .list { list-style: none; text-align: center; font-size: clamp(18px, 1.6vw, 26px); line-height: 1.12; }
+  .story .red .list a:hover { color: var(--ink); }
+
+  .sec { padding: 64px var(--pad) 22px; display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
+  .sec h2 { font-size: clamp(44px, 7.6vw, 132px); }
+  .sec .cap { white-space: nowrap; }
+
+  .serv { padding: 0 var(--pad); display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px 24px; }
+  .serv .n { color: var(--red); font-size: clamp(64px, 8vw, 132px); line-height: .8; font-weight: 800; letter-spacing: -.04em; }
+  .serv h3 { margin: 18px 0 10px; font-size: 21px; font-weight: 800; line-height: 1.02; text-transform: uppercase; }
+  .serv p { font-size: 14.5px; }
+  .serv small { display: block; margin-top: 14px; font-size: 12px; font-weight: 700; }
+  .serv small a { text-decoration: underline; text-underline-offset: 2px; }
+  .serv small a:hover { color: var(--red); }
+
+  .about { padding: 80px var(--pad) 90px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .about p { grid-column: 2 / span 3; font-size: clamp(24px, 2.6vw, 42px); font-weight: 700; line-height: 1.08; letter-spacing: -.01em; }
+  .about .cap { padding-top: 10px; }
+
+  .contact {
+    background: var(--red); color: #fff; padding: 46px var(--pad) 40px; margin-top: var(--gap);
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  }
+  .contact h2 { grid-column: 1 / -1; font-size: clamp(64px, 15.5vw, 280px); line-height: .8; font-variation-settings: "wdth" 104; }
+  .contact p { grid-column: span 2; font-weight: 700; font-size: 17px; max-width: 40ch; }
+  .contact .links { grid-column: span 2; display: flex; gap: 26px; justify-content: flex-end; align-items: flex-end; }
+  .contact .links a { font-weight: 800; font-size: clamp(22px, 2.6vw, 40px); text-transform: uppercase; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; }
+  footer { display: flex; justify-content: space-between; padding: 14px var(--pad) 22px; }
+
+  /* Lector de proyecto (#/id) */
+  .rd { position: fixed; inset: 0; z-index: 60; background: var(--paper); overflow-y: auto; overscroll-behavior: contain; }
+  .rd[hidden] { display: none; }
+  .rd-bar { position: sticky; top: 0; z-index: 2; height: var(--bar); background: var(--paper); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 var(--pad); }
+  .rd-bar .x { justify-self: end; }
+  .rd-bar a:hover, .rd-bar button:hover { color: var(--red); }
+  .rd-head { padding: 7vh var(--pad) 46px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .rd-head .kick { grid-column: 1 / -1; color: var(--red); }
+  .rd-head h1 { grid-column: 1 / -1; font-size: clamp(54px, 10.5vw, 190px); }
+  .rd-head .deck { grid-column: 1 / span 2; font-size: 18px; line-height: 1.32; font-weight: 500; }
+  .rd-head .meta { grid-column: 3 / span 2; display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; align-content: start; font-size: 13px; }
+  .rd-head .meta dt { font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: .04em; padding-top: 2px; }
+  .rd-imgs { columns: 3; column-gap: var(--gap); padding: 0 var(--gap); }
+  .rd-imgs > * { break-inside: avoid; margin-bottom: var(--gap); height: auto; object-fit: contain; }
+  .rd-next { display: block; margin-top: 60px; padding: 40px var(--pad) 60px; border-top: 4px solid var(--ink); }
+  .rd-next .hl { font-size: clamp(40px, 7vw, 120px); }
+  .rd-next:hover { color: var(--red); border-color: var(--red); }
+
+  .variantes { position: fixed; right: 10px; bottom: 10px; z-index: 70; background: var(--ink); color: #fff; padding: 6px 9px; }
+
+  /* Mobile: aditivo */
+  @media (max-width: 820px) {
+    :root { --pad: 14px; --bar: 48px; }
+    .mast { grid-template-columns: 1fr auto; }
+    .mast .l { display: none; }
+    .mast .r { gap: 12px; }
+    .logo { font-size: 20px; }
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .s3, .s4 { grid-column: span 2; }
+    .hero { height: auto; min-height: 0; }
+    .hero .t.img { height: 72svh; }
+    .hero .txt { padding: 40px 18px; min-height: 64svh; }
+    .story { min-height: 0; }
+    .story .t.img { aspect-ratio: 4 / 5; }
+    .story .t.s2.img { aspect-ratio: 4 / 5; }
+    .story .txt { padding: 26px 16px 30px; min-height: 0; }
+    .story .t.txt, .m2 { grid-column: span 2; }
+    .story .red { min-height: 52svh; }
+    .sec { flex-direction: column; gap: 6px; padding-top: 52px; }
+    .serv { grid-template-columns: 1fr 1fr; gap: 38px 16px; }
+    .about { grid-template-columns: 1fr; padding: 60px var(--pad); }
+    .about p { grid-column: auto; }
+    .contact { grid-template-columns: 1fr; }
+    .contact h2 { font-size: 15vw; }
+    .contact p, .contact .links { grid-column: auto; justify-content: flex-start; }
+    .rd-head { grid-template-columns: 1fr; padding-top: 32px; }
+    .rd-head .deck, .rd-head .meta { grid-column: auto; }
+    .rd-imgs { columns: 2; }
+  }
+  @media (max-width: 480px) {
+    .serv { grid-template-columns: 1fr; }
+    .rd-imgs { columns: 1; }
+  }
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <nav class="l" aria-label="Secciones"><a href="#estilismo">Estilismo</a><a href="#diseno">Diseño</a><a href="#fotografia">Fotografía</a></nav>
+  <a class="logo" href="#">AILEN RAUSCH</a>
+  <nav class="r" aria-label="Contacto"><a href="#servicios">Servicios</a><a href="#contacto">Contacto</a></nav>
+</header>
+
+<main id="main"></main>
+
+<section class="rd" id="rd" hidden role="dialog" aria-modal="true"></section>
+
+<a class="variantes cap" href="../index.html">← Variantes</a>
+
+<script src="../assets/proyectos.js"></script>
+<script>
+(() => {
+  const A = '../assets/';
+  const P = window.PROYECTOS, S = window.SERVICIOS, PF = window.PERFIL;
+  const byId = Object.fromEntries(P.map(p => [p.id, p]));
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  const img = (id, k, sizes, eager) => {
+    const p = byId[id], [src, w, h] = p.imgs[k];
+    return `<img src="${A}${src}.webp" srcset="${A}${src}-s.webp 720w, ${A}${src}.webp 2000w" sizes="${sizes}"
+      width="${w}" height="${h}" alt="${esc(p.titulo)} — ${esc(p.rol)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
+  };
+  const vid = (id, k) => {
+    const v = byId[id].videos[k];
+    return `<video src="${A}${v[0]}" poster="${A}${v[1]}" width="${v[2]}" height="${v[3]}" muted loop playsinline autoplay preload="metadata" aria-label="${esc(byId[id].titulo)}"></video>`;
+  };
+  // placa de imagen o video que abre el proyecto
+  const tImg = (cls, id, media) => `<div class="t img ${cls}"><a href="#/${id}" aria-label="Ver ${esc(byId[id].titulo)}">${media}</a></div>`;
+  // tarjeta con rótulo debajo, como las de 032c
+  const card = (id, k, label, contain) => `<a class="card" href="#/${id}"><figure class="${contain ? 'contain' : ''}">${img(id, k, '(max-width:820px) 50vw, 25vw')}</figure><div class="cap">${label}</div></a>`;
+  const links = ids => ids.map(id => `<a href="#/${id}">${esc(byId[id].titulo)}</a>`).join(', ');
+  const contactHref = () => [PF.mail ? `mailto:${PF.mail}` : '#contacto', PF.instagram ? `https://instagram.com/${PF.instagram}` : '#contacto'];
+
+  const [mail, ig] = contactHref();
+  document.getElementById('main').innerHTML = `
+    <section class="grid hero" aria-label="Portada">
+      ${tImg('s2', 'victoria', img('victoria', 0, '(max-width:820px) 100vw, 50vw', true))}
+      <div class="t txt red s2">
+        <p class="cap kick">Portfolio Nº 01 — ${PF.base}</p>
+        <div class="mid"><h1 class="hl">Estilismo, diseño y fotografía de moda</h1></div>
+        <p class="deck">${esc(PF.bio)}</p>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Disciplinas">
+      ${card('victoria', 7, 'Estilismo')}
+      ${card('yegua', 0, 'Diseño')}
+      ${card('fichas', 0, 'Fichas técnicas', true)}
+      ${card('emilia', 0, 'Fotografía')}
+    </section>
+
+    <div class="sec" id="estilismo"><h2 class="hl">Estilismo</h2><span class="cap">Artistas, bandas y producciones</span></div>
+    <section class="grid story">
+      <div class="t txt s2">
+        <p class="cap">Estilismo · 2026</p><br>
+        <h2 class="hl">Victoria Whynot: de Cosquín Rock a Lollapalooza</h2>
+        <p>${esc(byId.victoria.texto)}</p>
+        <a class="more" href="#/victoria">Ver el proyecto completo →</a>
+      </div>
+      ${tImg('', 'victoria', img('victoria', 4, '(max-width:820px) 50vw, 25vw'))}
+      ${tImg('', 'victoria', vid('victoria', 0))}
+    </section>
+    <section class="grid story">
+      ${tImg('tall', 'virgenxita', img('virgenxita', 0, '(max-width:820px) 50vw, 25vw'))}
+      ${tImg('tall', 'isca', img('isca', 0, '(max-width:820px) 50vw, 25vw'))}
+      <div class="t txt red s2">
+        <h2 class="hl">Estilismo en vivo</h2>
+        <ul class="list hl">${['virgenxita', 'isca', 'h1', 'rocksarito', 'tizzi'].map(id => `<li><a href="#/${id}">${esc(byId[id].titulo)}</a></li>`).join('')}</ul>
+      </div>
+    </section>
+    <section class="grid" aria-label="Más estilismo">
+      ${card('h1', 0, 'H1 · 2025')}
+      ${card('rocksarito', 0, 'Rocksarito · 2025')}
+      ${card('vereda', 0, 'Desde la Vereda · 2025')}
+      ${card('anto', 0, 'TFG Antonella Pellegrini · 2025')}
+    </section>
+
+    <div class="sec" id="diseno"><h2 class="hl">Diseño</h2><span class="cap">Colecciones, sastrería y desarrollo técnico</span></div>
+    <section class="grid story">
+      ${tImg('s2', 'yegua', img('yegua', 1, '(max-width:820px) 100vw, 50vw'))}
+      <div class="t txt red s2">
+        <p class="cap">Yegua Studio · Marca propia · 2026</p>
+        <h2 class="hl">Cada colección empieza en una película</h2>
+        <p>${esc(byId.yegua.texto)}</p>
+      </div>
+    </section>
+    <section class="grid" aria-label="Yegua Studio en movimiento">
+      ${tImg('tall', 'yegua', vid('yegua', 0))}
+      ${tImg('tall', 'yegua', vid('yegua', 1))}
+      ${tImg('tall', 'yegua', vid('yegua', 2))}
+      ${tImg('tall', 'yegua', img('yegua', 9, '(max-width:820px) 50vw, 25vw'))}
+    </section>
+    <section class="grid story">
+      <div class="t txt">
+        <p class="cap">Sartessa · Trabajo Final de Grado</p><br>
+        <h2 class="hl">Una marca país de sastrería femenina</h2>
+        <p>${esc(byId.sartessa.texto)}</p>
+        <a class="more" href="#/sartessa">Ver el proyecto completo →</a>
+      </div>
+      ${tImg('s2', 'sartessa', img('sartessa', 8, '(max-width:820px) 100vw, 50vw'))}
+      ${tImg('m2', 'sartessa', img('sartessa', 0, '(max-width:820px) 100vw, 25vw'))}
+    </section>
+    <section class="grid" aria-label="Fichas técnicas">
+      ${card('fichas', 0, 'Ficha técnica · Blazer', true)}
+      ${card('fichas', 1, 'Ficha técnica · Conjunto 12', true)}
+      ${card('fichas', 4, 'Ficha de textiles', true)}
+      ${card('sartessa', 15, 'Line-up de la colección', true)}
+    </section>
+
+    <div class="sec" id="fotografia"><h2 class="hl">Fotografía</h2><span class="cap">Producción fotográfica</span></div>
+    <section class="grid story">
+      ${tImg('', 'emilia', img('emilia', 2, '(max-width:820px) 50vw, 25vw'))}
+      ${tImg('', 'emilia', img('emilia', 1, '(max-width:820px) 50vw, 25vw'))}
+      <div class="t txt red s2">
+        <h2 class="hl">Producción fotográfica para Trabajos Finales de Grado</h2><br>
+        <p>${links(['emilia', 'nahuel', 'vereda'])}</p>
+      </div>
+    </section>
+    <section class="grid" aria-label="Más fotografía">
+      ${card('nahuel', 0, 'TFG Nahuel Chumbita')}
+      ${card('nahuel', 3, 'TFG Nahuel Chumbita')}
+      ${card('emilia', 11, 'TFG Emilia Salto Ledesma')}
+      ${card('vereda', 3, 'Desde la Vereda')}
+    </section>
+
+    <div class="sec" id="servicios"><h2 class="hl">Servicios</h2><span class="cap">Qué hago</span></div>
+    <section class="serv">
+      ${S.map(s => `<div><div class="n">${s.n}</div><h3>${s.titulo}</h3><p>${s.texto}</p><small>Ver: ${links(s.proyectos)}</small></div>`).join('')}
+    </section>
+
+    <section class="about" aria-label="Sobre mí">
+      <span class="cap">Sobre mí</span>
+      <p>${esc(PF.bio)}</p>
+    </section>
+
+    <section class="contact" id="contacto">
+      <h2 class="hl">Escribime</h2>
+      <p>Para estilismo de shows, sesiones y videoclips, diseño de prendas o producciones de moda.</p>
+      <div class="links"><a href="${mail}">Mail</a><a href="${ig}">Instagram</a></div>
+    </section>
+    <footer class="cap"><span>${PF.nombre} — ${PF.oficio}</span><span>${PF.base}</span></footer>`;
+
+  // Lector: #/id
+  const rd = document.getElementById('rd');
+  function open(p) {
+    const i = P.indexOf(p), next = P[(i + 1) % P.length];
+    const media = [
+      ...p.videos.map((v, k) => `<video src="${A}${v[0]}" poster="${A}${v[1]}" width="${v[2]}" height="${v[3]}" muted loop playsinline autoplay preload="metadata"></video>`),
+      ...p.imgs.map((_, k) => img(p.id, k, '(max-width:480px) 100vw, (max-width:820px) 50vw, 33vw')),
+    ];
+    rd.innerHTML = `
+      <div class="rd-bar"><a class="cap" href="#_">← Volver</a><a class="logo" href="#_">AILEN RAUSCH</a><a class="cap x" href="#_">Cerrar ✕</a></div>
+      <header class="rd-head">
+        <p class="cap kick">${p.categoria} · ${p.anio}</p>
+        <h1 class="hl">${esc(p.titulo)}</h1>
+        <p class="deck">${esc(p.texto)}</p>
+        <dl class="meta"><dt>Rol</dt><dd>${esc(p.rol)}</dd><dt>Proyecto</dt><dd>${esc(p.bajada)}</dd><dt>Año</dt><dd>${p.anio}</dd>${p.creditos ? `<dt>Créditos</dt><dd>${esc(p.creditos)}</dd>` : ''}</dl>
+      </header>
+      <div class="rd-imgs">${media.join('')}</div>
+      <a class="rd-next" href="#/${next.id}"><span class="cap">Siguiente</span><div class="hl">${esc(next.titulo)} →</div></a>`;
+    rd.scrollTop = 0;
+  }
+  function route() {
+    const id = location.hash.replace(/^#\/?/, '');
+    if (location.hash.startsWith('#/') && byId[id]) {
+      open(byId[id]); rd.hidden = false; document.documentElement.style.overflow = 'hidden';
+    } else if (!rd.hidden) {
+      rd.hidden = true; rd.innerHTML = ''; document.documentElement.style.overflow = '';
+    }
+  }
+  window.addEventListener('hashchange', route);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !rd.hidden) location.hash = '_'; });
+  route();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ailen Rausch</title>
+<meta name="description" content="Ailen Rausch — diseñadora de indumentaria y textil y estilista. Córdoba, Argentina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Variante A · «Índice» — inspirada en lou-vacquie (Readymag): índice fijo AÑO_Proyecto,
+     imágenes sueltas y desparejas sobre blanco, ficha de proyecto en tres columnas. */
+  :root {
+    --bg: #fff;
+    --ink: #6d6d6d;
+    --ink-hi: #111;
+    --rule: #b5b5b5;
+    --pad: 24px;
+    --head: clamp(22px, 2.45vw, 35px);
+    --top: 74px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font: 400 14px/1.22 "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:hover, button:hover { color: var(--ink-hi); }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; text-align: left; }
+  img, video { display: block; width: 100%; height: auto; background: #f1f1f1; }
+  :focus-visible { outline: 1px dotted var(--ink-hi); outline-offset: 3px; }
+
+  /* Cabecera: nombre a la izquierda, tres enlaces repartidos como en el ejemplo */
+  .top {
+    position: fixed; inset: 0 0 auto 0; z-index: 40; height: 56px;
+    display: flex; align-items: baseline; padding: 11px var(--pad) 0;
+    font-size: var(--head); line-height: 1.1; background: var(--bg);
+  }
+  .top .name { flex: 0 0 50%; }
+  .top .l1 { flex: 0 0 25%; }
+  .top .l3 { margin-left: auto; }
+  .top .only-m { display: none; }
+
+  /* Índice fijo. mix-blend-mode deja leerlo cuando pasa una foto por debajo */
+  .index {
+    position: fixed; top: var(--top); left: var(--pad); z-index: 20;
+    list-style: none; color: #929292; mix-blend-mode: difference;
+  }
+  .index a { display: block; padding: 0.5px 0; white-space: nowrap; transition: color .15s; }
+  .index a:hover, .index a.on { color: #fff; }
+
+  /* Feed */
+  .feed { padding: var(--top) 0 0; position: relative; }
+  .f { margin-left: calc(var(--l) * 1vw); width: calc(var(--w) * 1vw); margin-top: calc(var(--t) * 1vw); position: relative; }
+  .f-row { display: flex; align-items: flex-start; }
+  .f-row .f { margin-top: 0; }
+  .f a { display: block; cursor: zoom-in; }
+  .f figcaption { margin-top: 7px; font-size: 13px; }
+  .f video { cursor: zoom-in; }
+
+  .foot {
+    margin-top: 14vw; border-top: 1px dotted var(--rule);
+    padding: 20px var(--pad) 40px; display: grid; grid-template-columns: 17% 20% 1fr; gap: 0 2%;
+  }
+  .serv { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 4%; }
+  .serv b { font-weight: 400; color: var(--ink-hi); display: block; margin-bottom: 4px; }
+  .foot .contact a { display: block; }
+
+  /* Vista de proyecto y «Sobre mí» */
+  .pv {
+    position: fixed; inset: 0; z-index: 30; background: var(--bg);
+    overflow-y: auto; overscroll-behavior: contain;
+  }
+  .pv[hidden] { display: none; }
+  .pv-imgs { padding: 92px var(--pad) 190px; display: grid; justify-items: center; gap: 16vh; }
+  .pv-imgs > * { width: auto; max-width: min(72vw, 100%); max-height: calc(100svh - 240px); object-fit: contain; }
+  .pv-imgs video { background: #000; }
+  .pv-info {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 31; background: var(--bg);
+    border-top: 1px dotted var(--rule); padding: 18px var(--pad) 22px;
+    display: grid; grid-template-columns: 17% 20% 1fr; gap: 0 2%; min-height: 110px;
+  }
+  .pv-info .nav { margin-top: 14px; display: flex; gap: 18px; }
+  .pv-info .count { color: #a3a3a3; margin-top: 2px; }
+  .pv-info p { max-width: 74ch; }
+
+  .about { padding: 104px var(--pad) 60px; display: grid; grid-template-columns: 50% 1fr; gap: 40px 0; }
+  .about .bio { font-size: var(--head); line-height: 1.12; grid-column: 1 / -1; max-width: 23em; color: var(--ink); }
+  .about h2 { font: inherit; color: var(--ink-hi); margin-bottom: 14px; }
+  .about .serv-l { list-style: none; display: grid; gap: 20px; max-width: 520px; }
+  .about .serv-l span { color: #a3a3a3; margin-right: 8px; }
+  .about .serv-l b { font-weight: 400; color: var(--ink-hi); }
+  .about .serv-l p { margin-top: 3px; }
+  .about .serv-l small { display: block; margin-top: 5px; font-size: 13px; color: #a3a3a3; }
+  .about .serv-l small a { text-decoration: underline dotted; text-underline-offset: 3px; }
+  .about .col2 { display: grid; gap: 30px; align-content: start; }
+  .about .col2 a { display: block; }
+
+  .variantes { position: fixed; right: 12px; bottom: 10px; z-index: 50; font-size: 11px; color: #a9a9a9; mix-blend-mode: difference; }
+
+  /* Mobile: aditivo, no toca lo de arriba */
+  @media (max-width: 820px) {
+    :root { --pad: 16px; --head: 21px; --top: 60px; }
+    .top { height: 46px; padding-top: 12px; }
+    .top .name { flex: 1 1 auto; }
+    .top .l1, .top .l2, .top .l3 { display: none; }
+    .top .only-m { display: inline; margin-left: 16px; }
+    .index {
+      inset: 46px 0 0 0; padding: 14px var(--pad) 40px; background: var(--bg);
+      mix-blend-mode: normal; color: var(--ink); font-size: 17px; line-height: 1.5;
+      overflow-y: auto; display: none; z-index: 35;
+    }
+    body.idx-open .index { display: block; }
+    .index a:hover, .index a.on { color: var(--ink-hi); }
+    .feed { padding-left: var(--pad); padding-right: var(--pad); }
+    .f { margin-left: calc(var(--ml) * 1%); width: calc(var(--mw) * 1%); margin-top: 56px; }
+    .f-row { display: block; }
+    .f-row .f { margin-top: 56px; }
+    .foot { grid-template-columns: 1fr; gap: 26px; }
+    .serv { grid-template-columns: 1fr; }
+    .pv-imgs { padding: 70px var(--pad) 30px; gap: 28px; }
+    .pv-imgs > * { max-width: 100%; max-height: none; width: 100%; }
+    .pv-info { position: static; grid-template-columns: 1fr; gap: 12px; padding-bottom: 40px; }
+    .about { grid-template-columns: 1fr; padding-top: 76px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="name" href="#">Ailen Rausch</a>
+  <a class="l1" href="#/sobre-mi">Sobre mí</a>
+  <a class="l2" href="#contacto" data-contact="mail">Mail</a>
+  <a class="l3" href="#contacto" data-contact="instagram">Instagram</a>
+  <button class="only-m" id="idx-btn" aria-expanded="false" aria-controls="index">Índice</button>
+  <a class="only-m" href="#/sobre-mi">Info</a>
+</header>
+
+<nav aria-label="Proyectos"><ul class="index" id="index"></ul></nav>
+
+<main class="feed" id="feed"></main>
+
+<section class="pv" id="pv" hidden aria-modal="true" role="dialog"></section>
+
+<a class="variantes" href="../index.html">← variantes</a>
+
+<script src="../assets/proyectos.js"></script>
+<script>
+(() => {
+  const A = '../assets/';
+  const P = window.PROYECTOS, byId = Object.fromEntries(P.map(p => [p.id, p]));
+  const tag = p => `${p.anio}_${p.slug}`;
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  const img = (src, w, h, sizes, alt, eager) =>
+    `<img src="${A}${src}.webp" srcset="${A}${src}-s.webp 720w, ${A}${src}.webp 2000w" sizes="${sizes}"
+      width="${w}" height="${h}" style="aspect-ratio:${w}/${h}" alt="${esc(alt)}" ${eager ? '' : 'loading="lazy"'} decoding="async">`;
+  const vid = (v, alt) =>
+    `<video src="${A}${v[0]}" poster="${A}${v[1]}" width="${v[2]}" height="${v[3]}" style="aspect-ratio:${v[2]}/${v[3]}"
+      muted loop playsinline autoplay preload="metadata" aria-label="${esc(alt)}"></video>`;
+
+  // Índice
+  document.getElementById('index').innerHTML =
+    P.map(p => `<li><a href="#/${p.id}" data-id="${p.id}">${tag(p)}</a></li>`).join('');
+
+  // Feed armado a mano: l/w/t en vw (desktop), ml/mw en % (mobile). k = foto (número) o 'v0' (video)
+  const F = [
+    { id: 'victoria', k: 0, l: 42.6, w: 55, t: 0, ml: 0, mw: 100 },
+    { id: 'victoria', k: 'v0', l: 2, w: 23, t: 7, ml: 38, mw: 62 },
+    { id: 'yegua', k: 1, l: 22, w: 58, t: 9, ml: 0, mw: 100 },
+    { id: 'yegua', k: 0, l: 68, w: 25, t: 7, ml: 0, mw: 58 },
+    { row: [{ id: 'virgenxita', k: 0, l: 40, w: 30, ml: 22, mw: 78 }, { id: 'virgenxita', k: 1, l: 3, w: 22, ml: 0, mw: 60 }], t: 9 },
+    { id: 'isca', k: 0, l: 8, w: 34, t: 9, ml: 0, mw: 84 },
+    { id: 'sartessa', k: 0, l: 42.6, w: 55, t: 6, ml: 0, mw: 100 },
+    { id: 'sartessa', k: 8, l: 2, w: 62, t: 7, ml: 0, mw: 100 },
+    { id: 'fichas', k: 0, l: 34, w: 56, t: 9, ml: 0, mw: 100 },
+    { row: [{ id: 'h1', k: 0, l: 56, w: 22, ml: 0, mw: 70 }, { id: 'h1', k: 4, l: 2, w: 18, ml: 30, mw: 70 }], t: 10 },
+    { id: 'vereda', k: 2, l: 2, w: 56, t: 9, ml: 0, mw: 100 },
+    { id: 'tizzi', k: 1, l: 44, w: 48, t: 8, ml: 0, mw: 100 },
+    { id: 'rocksarito', k: 'v0', l: 74, w: 20, t: 7, ml: 40, mw: 60 },
+    { id: 'anto', k: 0, l: 28, w: 36, t: 6, ml: 0, mw: 80 },
+    { row: [{ id: 'emilia', k: 0, l: 48, w: 26, ml: 26, mw: 74 }, { id: 'emilia', k: 1, l: 2, w: 20, ml: 0, mw: 62 }], t: 10 },
+    { id: 'nahuel', k: 0, l: 16, w: 38, t: 9, ml: 0, mw: 88 },
+    { id: 'yegua', k: 9, l: 2, w: 96, t: 10, ml: 0, mw: 100 },
+  ];
+  let first = true;
+  const fig = e => {
+    const p = byId[e.id], s = `--l:${e.l};--w:${e.w};--t:${e.t || 0};--ml:${e.ml};--mw:${e.mw}`;
+    const media = typeof e.k === 'string'
+      ? vid(p.videos[+e.k.slice(1)], p.titulo)
+      : (() => { const [src, w, h] = p.imgs[e.k]; const o = img(src, w, h, `(max-width:820px) ${e.mw}vw, ${e.w}vw`, `${p.titulo} — ${p.rol}`, first); first = false; return o; })();
+    return `<figure class="f" style="${s}" data-id="${p.id}"><a href="#/${p.id}" aria-label="Ver ${esc(p.titulo)}">${media}</a><figcaption>${tag(p)}</figcaption></figure>`;
+  };
+  const S = window.SERVICIOS, PF = window.PERFIL;
+  document.getElementById('feed').innerHTML = F.map(e =>
+    e.row ? `<div class="f-row" style="margin-top:${e.t}vw">${e.row.map(fig).join('')}</div>` : fig(e)
+  ).join('') + `
+    <footer class="foot" id="contacto">
+      <div>${PF.nombre}<br>${PF.base}</div>
+      <div class="contact">${contactLinks()}</div>
+      <div class="serv">${S.map(s => `<div><b>${s.n}_${s.titulo}</b>${s.texto}</div>`).join('')}</div>
+    </footer>`;
+
+  function contactLinks() {
+    // Faltan los datos reales: quedan como enlaces mudos hasta tenerlos
+    const m = PF.mail ? `mailto:${PF.mail}` : '#contacto';
+    const ig = PF.instagram ? `https://instagram.com/${PF.instagram}` : '#contacto';
+    return `<a href="${m}">Mail</a><a href="${ig}">Instagram</a>`;
+  }
+
+  // El índice se marca cuando su proyecto está a la vista
+  const links = [...document.querySelectorAll('.index a')];
+  const seen = new Map();
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => seen.set(e.target, e.isIntersecting));
+    const vis = new Set([...seen].filter(([, v]) => v).map(([el]) => el.dataset.id));
+    links.forEach(a => a.classList.toggle('on', vis.has(a.dataset.id)));
+  }, { rootMargin: '-35% 0px -35% 0px' });
+  document.querySelectorAll('.f').forEach(f => io.observe(f));
+
+  // Router por hash: #/id abre el proyecto, #/sobre-mi la info
+  const pv = document.getElementById('pv');
+  let pvObs;
+  function openProject(p) {
+    const items = [
+      ...p.imgs.map(([src, w, h]) => img(src, w, h, '72vw', `${p.titulo} — ${p.rol}`, false)),
+      ...p.videos.map(v => vid(v, p.titulo)),
+    ];
+    const i = P.indexOf(p), next = P[(i + 1) % P.length], prev = P[(i - 1 + P.length) % P.length];
+    pv.innerHTML = `
+      <div class="pv-imgs">${items.join('')}</div>
+      <div class="pv-info">
+        <div>${tag(p)}<div class="count"><span id="cnt">01</span> / ${String(items.length).padStart(2, '0')}</div>
+          <div class="nav"><a href="#/${prev.id}">←</a><a href="#_">Índice</a><a href="#/${next.id}">→</a></div></div>
+        <div>${esc(p.rol)}<br>${esc(p.bajada)}${p.creditos ? `<br>${esc(p.creditos)}` : ''}</div>
+        <p>${esc(p.texto)}</p>
+      </div>`;
+    pv.scrollTop = 0;
+    pvObs && pvObs.disconnect();
+    const kids = [...pv.querySelector('.pv-imgs').children];
+    pvObs = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) document.getElementById('cnt').textContent = String(kids.indexOf(e.target) + 1).padStart(2, '0');
+    }), { root: pv, rootMargin: '-45% 0px -45% 0px' });
+    kids.forEach(k => pvObs.observe(k));
+  }
+  function openAbout() {
+    const colab = S[0].proyectos.map(id => byId[id].titulo).join(', ');
+    pv.innerHTML = `<div class="about">
+      <p class="bio">${esc(PF.bio)}</p>
+      <div><h2>Servicios</h2><ol class="serv-l">${S.map(s => `<li><span>${s.n}</span><b>${s.titulo}</b><p>${s.texto}</p>
+        <small>${s.proyectos.map(id => `<a href="#/${id}">${tag(byId[id])}</a>`).join(' ')}</small></li>`).join('')}</ol></div>
+      <div class="col2">
+        <div><h2>Contacto</h2>${contactLinks()}</div>
+        <div><h2>Estilismo para</h2>${colab}</div>
+        <div><h2>Formación</h2>Licenciatura en Diseño de Indumentaria y Textil</div>
+        <div><a href="#_">← Índice</a></div>
+      </div></div>`;
+    pv.scrollTop = 0;
+  }
+  function route() {
+    const h = location.hash.replace(/^#\/?/, '');
+    document.body.classList.remove('idx-open');
+    if (h === 'sobre-mi') openAbout();
+    else if (byId[h]) openProject(byId[h]);
+    else { pv.hidden = true; pv.innerHTML = ''; document.documentElement.style.overflow = ''; return; }
+    pv.hidden = false; document.documentElement.style.overflow = 'hidden';
+  }
+  window.addEventListener('hashchange', route);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !pv.hidden) location.hash = '_'; });
+  route();
+
+  // Índice en mobile
+  const btn = document.getElementById('idx-btn');
+  btn.addEventListener('click', () => {
+    const open = document.body.classList.toggle('idx-open');
+    btn.setAttribute('aria-expanded', open);
+  });
+})();
+</script>
+</body>
+</html>
