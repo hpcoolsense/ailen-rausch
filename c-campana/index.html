@@ -45,19 +45,20 @@
   .nav a:hover, .side:hover { font-style: italic; }
 
   /* Portada: tres videos verticales de Yegua Studio, a sangre */
-  .hero { height: 100svh; display: grid; grid-template-columns: repeat(3, 1fr); position: relative; }
-  .hero video { height: 100svh; }
-  .hero .cap { position: absolute; left: 0; right: 0; bottom: 18px; padding: 0 var(--pad) 0 48px; display: flex; justify-content: space-between; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,.35); font-size: 15px; }
+  .hero { height: 100svh; display: grid; grid-template-columns: repeat(3, 1fr); position: relative; background: var(--bg); }
+  .hero .col { position: relative; height: 100svh; overflow: hidden; }
+  .hero video { height: 100%; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--dim, 0); pointer-events: none; }
+  .hero .cap { z-index: 2; position: absolute; left: 0; right: 0; bottom: 18px; padding: 0 var(--pad) 0 48px; display: flex; justify-content: space-between; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,.35); font-size: 15px; }
 
-  .intro { padding: 18vh var(--pad) 16vh; text-align: center; }
+  .intro { position: relative; padding: 18vh var(--pad) 16vh; text-align: center; }
   .intro h1 { font-weight: 400; font-style: italic; font-size: clamp(36px, 5vw, 84px); line-height: 1.02; letter-spacing: -.01em; max-width: 14em; margin: 0 auto; }
   .intro p { max-width: 38em; margin: 34px auto 0; color: #cdc6ba; font-size: 18px; }
   .intro p + p { margin-top: 14px; }
 
   /* Capítulos a sangre */
   .ch { position: relative; height: 100svh; display: block; overflow: hidden; }
-  .ch img, .ch video { height: 100%; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
-  .ch:hover img { transform: scale(1.015); }
+  .ch img, .ch video { height: 100%; }
   .ch .lab {
     position: absolute; left: 48px; right: var(--pad); bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end;
     color: #fff; text-shadow: 0 1px 14px rgba(0,0,0,.35); gap: 20px;
@@ -68,12 +69,43 @@
   .two .ch .lab b { font-size: clamp(22px, 1.9vw, 30px); }
   .two.short .ch { height: 74svh; }
 
+  /* En vivo: la sección queda fija y el scroll vertical corre una tira horizontal */
+  .hz { position: relative; background: var(--bg); }
+  .hz-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: center; }
+  .hz-bg {
+    position: absolute; left: 0; top: 50%; padding-left: 6vw; white-space: nowrap; pointer-events: none;
+    font-style: italic; font-size: clamp(120px, 26vw, 420px); line-height: 1; color: transparent;
+    -webkit-text-stroke: 1px rgba(236,230,220,.16); transform: translateY(-50%);
+  }
+  .hz-track { position: relative; display: flex; align-items: center; gap: 4vw; padding: 0 12vw 0 48px; }
+  .hz-intro { flex: none; width: min(440px, 70vw); }
+  .hz-intro .k { color: var(--mute); font-style: italic; }
+  .hz-intro h2 { font-weight: 400; font-style: italic; font-size: clamp(48px, 6vw, 104px); line-height: .95; margin: 8px 0 18px; }
+  .hz-intro p { color: #cdc6ba; font-size: 17px; max-width: 26em; }
+  .hz-it { flex: none; display: block; position: relative; }
+  .hz-it.up { top: -7svh; }
+  .hz-it.dn { top: 7svh; }
+  .hz-it .fr { display: block; height: 62svh; overflow: hidden; }
+  .hz-it img { width: auto; height: 100%; max-width: none; }
+  .hz-it .c { display: block; margin-top: 10px; font-size: 15px; }
+  .hz-it .c em { color: var(--mute); }
+  .hz-it:hover .c { font-style: italic; }
+
+  /* Yegua Studio: ventana chica que se agranda hasta ocupar la pantalla */
+  .zoom { position: relative; height: 250vh; background: var(--bg); }
+  .zm-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  .zoom .zm-win { position: absolute; inset: 0; height: auto; }
+  .zm-t { position: absolute; left: 0; right: 0; z-index: 2; text-align: center; pointer-events: none; font-style: italic; font-size: clamp(38px, 6vw, 104px); line-height: 1; }
+  .zm-t1 { top: 13%; }
+  .zm-t2 { bottom: 13%; }
+
   /* Archivo en collage */
   .sec-t { padding: 16vh var(--pad) 40px 48px; display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--line); margin-bottom: 14px; }
   .sec-t h2 { font-weight: 400; font-style: italic; font-size: clamp(40px, 6vw, 100px); line-height: 1; }
   .sec-t span { color: var(--mute); }
-  .arch { columns: 4; column-gap: 14px; padding: 0 var(--pad) 0 48px; }
-  .arch a { display: block; break-inside: avoid; margin-bottom: 14px; position: relative; }
+  .arch { display: flex; align-items: flex-start; gap: 14px; padding: 0 var(--pad) 0 48px; }
+  .acol { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+  .arch a { display: block; position: relative; }
   .arch img { height: auto; }
   .arch .nm {
     position: absolute; inset: auto 0 0 0; padding: 14px; color: #fff; text-transform: uppercase; letter-spacing: .04em;
@@ -211,7 +243,7 @@
     .nav .r { display: none; }
     .side { left: 10px; top: 14px; font-size: 14px; }
     .hero { grid-template-columns: 1fr; }
-    .hero video:not(:nth-child(2)) { display: none; }
+    .hero .col:not(:nth-child(2)) { display: none; }
     .hero .cap { padding-left: 40px; }
     .hero .cap span { display: none; }
     .intro { padding: 12vh 22px 10vh; }
@@ -220,8 +252,13 @@
     .two { grid-template-columns: 1fr; }
     .two .ch { height: 82svh; }
     .sec-t { padding-left: 40px; flex-direction: column; gap: 8px; }
-    .arch { columns: 2; column-gap: 8px; padding-left: 40px; }
-    .arch a { margin-bottom: 8px; }
+    .arch { gap: 8px; padding-left: 40px; }
+    .acol { gap: 8px; }
+    .hz-track { gap: 8vw; padding-left: 40px; }
+    .hz-intro { width: 78vw; }
+    .hz-it .fr { height: 48svh; }
+    .hz-it.up { top: -5svh; }
+    .hz-it.dn { top: 5svh; }
     .arch .nm { padding: 10px; }
     .credits dl { grid-template-columns: 1fr; gap: 10px; text-align: center; }
     .credits dt { text-align: center; padding-top: 30px; }
@@ -310,9 +347,32 @@
   const mail = `mailto:${PF.mail}`, ig = `https://instagram.com/${PF.instagram}`, wa = `https://wa.me/${PF.whatsapp}`;
   const clip = `<svg class="clip" viewBox="0 0 24 74" aria-hidden="true"><path d="M8 18 V58 a6 6 0 0 0 12 0 V10 a8 8 0 0 0 -16 0 V54 a4 4 0 0 0 8 0 V20" fill="none" stroke="#a9a59e" stroke-width="2.2" stroke-linecap="round"/></svg>`;
 
+  // En vivo: fotos de escenario de cinco proyectos, intercaladas
+  const enVivo = [['virgenxita', 0], ['isca', 0], ['h1', 1], ['virgenxita', 1], ['isca', 2], ['h1', 3], ['rocksarito', 0], ['virgenxita', 4], ['isca', 4], ['h1', 9], ['tizzi', 1]];
+  const vivos = ['virgenxita', 'isca', 'h1', 'rocksarito', 'tizzi'];
+  const hzHTML = `
+      <section class="hz" id="envivo" aria-label="Estilismo en vivo">
+        <div class="hz-stage">
+          <p class="hz-bg" aria-hidden="true">en vivo — en vivo —</p>
+          <div class="hz-track">
+            <div class="hz-intro"><span class="k">estilismo para la escena</span><h2>En vivo</h2>
+              <p>Shows, festivales y escenarios: ${vivos.map(id => esc(byId[id].titulo)).join(', ')}.</p></div>
+            ${enVivo.map(([id, k], n) => `<a class="hz-it ${n % 2 ? 'dn' : 'up'}" href="#/${id}"><span class="fr">${img(id, k, '(max-width:820px) 60vw, 34vw', n < 3)}</span><span class="c">${esc(byId[id].titulo)} <em>· ${byId[id].anio}</em></span></a>`).join('')}
+          </div>
+        </div>
+      </section>`;
+  const zoomHTML = `
+      <section class="zoom" aria-label="Yegua Studio">
+        <div class="zm-stage">
+          <a class="ch zm-win" href="#/yegua" aria-label="Yegua Studio">${img('yegua', 1, '100vw')}${lab(byId.yegua)}</a>
+          <p class="zm-t zm-t1" aria-hidden="true">Cada colección</p>
+          <p class="zm-t zm-t2" aria-hidden="true">empieza en una película</p>
+        </div>
+      </section>`;
+
   document.getElementById('main').innerHTML = `
     <section class="hero" aria-label="Yegua Studio">
-      ${vid('yegua', 0)}${vid('yegua', 1)}${vid('yegua', 2)}
+      ${[0, 1, 2].map(k => `<div class="col">${vid('yegua', k)}</div>`).join('')}
       <div class="cap"><a href="#/yegua"><em>Yegua Studio</em> — colección ${byId.yegua.anio}</a><span>estilismo · diseño · fotografía de moda</span></div>
     </section>
 
@@ -324,18 +384,17 @@
     <div id="capitulos">
       ${ch('victoria', img('victoria', 5, '100vw'))}
       ${two(ch('victoria', vid('victoria', 0), false), ch('victoria', img('victoria', 3, half), false))}
-      ${ch('yegua', img('yegua', 1, '100vw'))}
-      ${two(ch('virgenxita', img('virgenxita', 0, half)), ch('virgenxita', img('virgenxita', 2, half), false))}
+      ${hzHTML}
+      ${zoomHTML}
       ${ch('sartessa', img('sartessa', 8, '100vw'))}
       ${two(ch('sartessa', img('sartessa', 0, half), false), ch('fichas', img('sartessa', 16, half)), 'short')}
-      ${two(ch('isca', img('isca', 1, half)), ch('h1', img('h1', 4, half)))}
       ${ch('emilia', img('emilia', 9, '100vw'))}
       ${two(ch('nahuel', img('nahuel', 0, half)), ch('anto', img('anto', 0, half)))}
       ${ch('vereda', img('vereda', 2, '100vw'))}
     </div>
 
     <div class="sec-t" id="archivo"><h2>Archivo</h2><span>${P.length} proyectos · 2024—2026</span></div>
-    <section class="arch">
+    <section class="arch" id="arch">
       ${P.map((p, i) => {
         const k = { victoria: 0, yegua: 0, sartessa: 3, fichas: 2, tizzi: 1, vereda: 0 }[p.id] ?? 0;
         return `<a href="#/${p.id}">${img(p.id, k, '(max-width:820px) 50vw, 25vw')}<span class="nm">${esc(p.titulo)}<small>${esc(p.rol)}, ${p.anio}</small></span></a>`;
@@ -422,26 +481,39 @@
   });
   route();
 
-  // Sobre atado al scroll. p = cuánto se recorrió la pista: 0 cerrado, 1 la carta sola en el centro.
-  // El avance se suaviza (cur persigue a tgt en cada frame) para que la ruedita no lo mueva a saltos.
-  const sb = document.getElementById('sobre');
-  const q = sel => sb.querySelector(sel);
-  const stage = q('.sb-stage'), env = q('.env'), flap = q('.flap'), letter = q('.letter'), txt = q('.txt'), hint = q('.sb-hint');
-  const shell = [q('.back'), q('.front'), flap];
-  const chrome = [q('.sb-k'), q('.sb-skip')];   // rótulo y «saltar»: se van con el sobre para dejarle lugar al menú
+  // ===== Scrollytelling =====
+  // Un solo motor para todo. sy es el scroll suavizado: persigue a scrollY con un tiempo de respuesta fijo.
+  // Cada efecto recibe el «top» de su elemento como si la página estuviera en sy, así todo se mueve con la misma
+  // inercia, la ruedita no da saltos y al subir cada efecto vuelve atrás. Con «reducir movimiento» no hay
+  // suavizado ni movimientos decorativos (M = 0), pero el sobre y las secciones fijas siguen funcionando.
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const clamp = x => Math.min(1, Math.max(0, x));
+  const M = reduce ? 0 : 1;
+  const mobile = matchMedia('(max-width: 820px)');
+  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
   const seg = (p, a, b) => clamp((p - a) / (b - a));
   const inOut = t => t < .5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
   const out = t => 1 - (1 - t) ** 3;
-  const range = () => Math.max(1, sb.offsetHeight - stage.offsetHeight);
-  const target = () => clamp((scrollY - sb.offsetTop) / range());
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+  const fx = [];
+  const efecto = (el, run) => { if (el) fx.push({ el, run }); };
+  let vh = innerHeight;
+  const entra = (top, k = .85) => clamp((vh - top) / (vh * k));                 // 0 asomando abajo, 1 ya entró
+  const centro = (top, h) => clamp((top + h / 2 - vh / 2) / vh, -1, 1);         // -1 arriba, 0 centrado, 1 abajo
+  const f2 = x => x.toFixed(2);
 
-  function render(p) {
-    const a = 180 * inOut(seg(p, .08, .42));   // 1. se abre la solapa
-    const r = out(seg(p, .36, .70));            // 2. sube la carta y el sobre baja
-    const c = inOut(seg(p, .68, .97));          // 3. el sobre se va para abajo y la carta queda sola, centrada
-    txt.style.opacity = 1 - seg(p, 0, .1);
+  // 1. Sobre. p = cuánto se recorrió su pista: 0 cerrado, 1 la carta sola en el centro.
+  const sb = $('#sobre'), stage = $('.sb-stage', sb), env = $('.env', sb), flap = $('.flap', sb), letter = $('.letter', sb);
+  const sbTxt = $('.txt', sb), hint = $('.sb-hint', sb);
+  const shell = [$('.back', sb), $('.front', sb), flap];
+  const chrome = [$('.sb-k', sb), $('#sb-skip', sb)];   // rótulo y «saltar»: se van con el sobre para dejarle lugar al menú
+  const pistaSobre = () => Math.max(1, sb.offsetHeight - stage.offsetHeight);
+  efecto(sb, top => {
+    const p = clamp(-top / pistaSobre());
+    const a = 180 * inOut(seg(p, .08, .42));   // se abre la solapa
+    const r = out(seg(p, .36, .70));            // sube la carta y el sobre baja
+    const c = inOut(seg(p, .68, .97));          // el sobre se va para abajo y la carta queda sola, centrada
+    sbTxt.style.opacity = 1 - seg(p, 0, .1);
     hint.style.opacity = 1 - seg(p, 0, .05);
     flap.style.transform = `rotateX(${-a}deg)`;
     flap.classList.toggle('in', a > 90);
@@ -454,26 +526,188 @@
     shell.forEach(el => { el.style.opacity = 1 - seg(p, .86, .97); });
     chrome.forEach(el => { el.style.opacity = 1 - seg(p, .8, .95); });
     document.body.classList.toggle('en-sobre', p < .97);
+  });
+
+  // 2. Portada: las tres columnas de video suben a destiempo al entrar; al salir bajan más lento y se oscurecen
+  const hero = $('.hero'), hVids = $$('.col video', hero), hCap = $('.cap', hero);
+  efecto(hero, (top, h) => {
+    const i = out(entra(top, 1)), e = clamp(-top / h);
+    hVids.forEach((v, k) => {
+      v.style.transform = `translateY(${f2(M * ((1 - i) * [16, 30, 44][k] + e * [12, 26, 18][k]))}%) scale(${1 + .14 * M})`;
+    });
+    hCap.style.opacity = 1 - seg(e, 0, .3);
+    hero.style.setProperty('--dim', f2(M * .6 * e));
+  });
+
+  // 3. Intro: las palabras se encienden a medida que suben por la pantalla
+  const intro = $('.intro');
+  $$('h1, p', intro).forEach(el => {
+    el.innerHTML = el.textContent.split(/(\s+)/).map(w => /^\s*$/.test(w) ? w : `<span class="w">${esc(w)}</span>`).join('');
+  });
+  let palabras = [];
+  const medirPalabras = () => { palabras = $$('.w', intro).map(el => ({ el, off: el.offsetTop + el.offsetHeight / 2, o: -1 })); };
+  efecto(intro, top => {
+    for (const w of palabras) {
+      const o = M ? +(.14 + .86 * clamp((vh * .8 - (top + w.off)) / (vh * .28))).toFixed(3) : 1;
+      if (o !== w.o) { w.el.style.opacity = o; w.o = o; }
+    }
+  });
+
+  // 4. Capítulos a sangre: la foto se abre desde un marco, se aleja y se desplaza más lento que la página
+  $$('#capitulos > .ch').forEach(ch => {
+    const m = $('img, video', ch), lb = $('.lab', ch);
+    efecto(ch, (top, h) => {
+      const i = out(entra(top, .9)), c = centro(top, h);
+      ch.style.clipPath = M ? `inset(${f2((1 - i) * 8)}% ${f2((1 - i) * 10)}%)` : '';
+      m.style.transform = `translateY(${f2(M * c * -7)}%) scale(${(1 + M * (.15 + .15 * (1 - i))).toFixed(3)})`;
+      if (lb) {
+        lb.style.opacity = f2(seg(i, .5, 1));
+        lb.style.transform = `translateY(${(M * (1 - seg(i, .35, 1)) * 34).toFixed(1)}px)`;
+      }
+    });
+  });
+
+  // 5. Pares: cada mitad se descubre como una cortina (una desde abajo, la otra desde arriba)
+  //    y sus fotos se desplazan en sentidos opuestos
+  $$('#capitulos .two').forEach(two => $$('.ch', two).forEach((ch, k) => {
+    const m = $('img, video', ch), lb = $('.lab', ch), dir = k ? 1 : -1;
+    efecto(ch, (top, h) => {
+      const i = inOut(seg(entra(top, .8), k * .12, 1)), c = centro(top, h);
+      const tapa = f2((1 - i) * 100);
+      ch.style.clipPath = M ? (k ? `inset(0 0 ${tapa}% 0)` : `inset(${tapa}% 0 0 0)`) : '';
+      m.style.transform = `translateY(${f2(M * c * 9 * dir)}%) scale(${1 + .2 * M})`;
+      if (lb) lb.style.opacity = f2(seg(i, .6, 1));
+    });
+  }));
+
+  // 6. En vivo: el scroll vertical corre la tira de costado; el título de fondo va más lento
+  //    y cada foto se mueve un poco dentro de su marco según dónde está en pantalla
+  const hz = $('.hz'), hzStage = $('.hz-stage', hz), track = $('.hz-track', hz), hzBg = $('.hz-bg', hz);
+  const hzIts = $$('.hz-it', hz).map(el => ({ el, img: $('img', el), x: 0, w: 0 }));
+  let hzDist = 0;
+  const medirHz = () => {
+    hzDist = Math.max(0, track.scrollWidth - innerWidth);
+    hz.style.height = `${hzDist / .84 + hzStage.offsetHeight}px`;   // +16% de pista para las pausas de entrada y salida
+    hzIts.forEach(it => { it.x = it.el.offsetLeft; it.w = it.el.offsetWidth; });
+  };
+  efecto(hz, (top, h) => {
+    const p = seg(clamp(-top / Math.max(1, h - hzStage.offsetHeight)), .08, .92);   // quieta al llegar y al irse
+    const x = -p * hzDist;
+    track.style.transform = `translateX(${x.toFixed(1)}px)`;
+    hzBg.style.transform = `translate(${(x * .3).toFixed(1)}px, -50%)`;
+    hzIts.forEach(it => {
+      const d = clamp((it.x + x + it.w / 2 - innerWidth / 2) / innerWidth, -1, 1);
+      it.img.style.transform = `translateX(${f2(M * d * -6)}%) scale(${1 + .12 * M})`;
+    });
+  });
+
+  // 7. Yegua Studio: una ventana chica que se agranda hasta ocupar la pantalla; el título se abre arriba y abajo
+  const zm = $('.zoom'), zmStage = $('.zm-stage', zm), win = $('.zm-win', zm), wImg = $('img', win);
+  const zT = [$('.zm-t1', zm), $('.zm-t2', zm)], zLab = $('.lab', win);
+  efecto(zm, (top, h) => {
+    const p = clamp(-top / Math.max(1, h - zmStage.offsetHeight));
+    const z = M ? 1 - inOut(seg(p, .06, .8)) : 0;            // 1 = ventana chica, 0 = pantalla completa
+    const [iy, ix] = mobile.matches ? [27, 10] : [27, 33];
+    win.style.clipPath = `inset(${f2(iy * z)}% ${f2(ix * z)}%)`;
+    wImg.style.transform = `scale(${(1 + .35 * z).toFixed(3)})`;
+    zT.forEach((t, k) => {
+      t.style.transform = `translateY(${f2((k ? 1 : -1) * (1 - z) * 28)}vh)`;
+      t.style.opacity = M ? f2(1 - seg(1 - z, .45, .85)) : 1;
+    });
+    zLab.style.opacity = f2(seg(p, .78, .95));
+  });
+
+  // 8. Archivo: columnas que se desplazan a distinta velocidad y fichas que suben al entrar
+  const arch = $('#arch'), cards = $$('a', arch).map(el => ({ el, ty: 0 }));
+  let acols = [];
+  const armarArchivo = () => {
+    const n = mobile.matches ? 2 : 4;
+    if (acols.length === n) return;
+    acols = Array.from({ length: n }, () => Object.assign(document.createElement('div'), { className: 'acol' }));
+    arch.replaceChildren(...acols);
+    cards.forEach((c, i) => acols[i % n].appendChild(c.el));
+  };
+  efecto(arch, (top, h) => {
+    const c = clamp((top + h / 2 - vh / 2) / (h / 2 + vh / 2), -1, 1);
+    const vel = mobile.matches ? [0, 70] : [0, 110, 30, 160];
+    acols.forEach((col, k) => { col.style.transform = `translateY(${(M * c * vel[k]).toFixed(1)}px)`; });
+  });
+  cards.forEach(c => efecto(c.el, top => {
+    const i = out(entra(top - c.ty, .35));                      // sin su propio corrimiento, para no realimentarse
+    c.ty = M * (1 - i) * 70;
+    c.el.style.transform = `translateY(${c.ty.toFixed(1)}px)`;
+    c.el.style.opacity = M ? f2(.1 + .9 * i) : 1;
+  }));
+
+  // 9. Créditos: foco de cámara, nítido en el centro de la pantalla y difuso hacia los bordes
+  $$('.credits dd').forEach(dd => {
+    const par = [dd.previousElementSibling, dd];
+    efecto(dd, (top, h) => {
+      const d = Math.abs(top + h / 2 - vh / 2) / (vh / 2);
+      const o = M ? 1 - .82 * seg(d, .3, 1) : 1, b = M ? 4 * seg(d, .35, 1) : 0;
+      par.forEach(el => { el.style.opacity = o.toFixed(3); el.style.filter = b > .05 ? `blur(${f2(b)}px)` : ''; });
+    });
+  });
+
+  // 10. About me: la tarjeta, la foto y la ficha llegan desde distintos lados y se acomodan como un collage
+  const ab = $('.ab'), abCard = $('.ab-card', ab), abFoto = $('.ab-foto', ab), abId = $('.ab-id', ab);
+  efecto(ab, top => {
+    const i = entra(top, .8), m = mobile.matches;
+    const [k1, k2, k3] = [[0, .8], [.15, .95], [.3, 1]].map(([a, b]) => M * (1 - out(seg(i, a, b))));
+    abCard.style.transform = m ? `translateY(${f2(60 * k1)}px) rotate(${f2(-4 * k1)}deg)`
+                               : `translateY(${f2(90 * k1)}px) rotate(${f2(-.5 - 4 * k1)}deg)`;
+    abFoto.style.transform = m ? `translate(${f2(50 * k2)}px, ${f2(60 * k2)}px) rotate(${f2(3 + 12 * k2)}deg)`
+                               : `translateY(-50%) translate(${f2(180 * k2)}px, ${f2(-50 * k2)}px) rotate(${f2(3.5 + 16 * k2)}deg)`;
+    abId.style.transform = m ? `translate(${f2(-40 * k3)}px, ${f2(50 * k3)}px) rotate(${f2(-2 - 10 * k3)}deg)`
+                             : `translate(${f2(-160 * k3)}px, ${f2(110 * k3)}px) rotate(${f2(-3.5 - 14 * k3)}deg)`;
+    [abCard, abFoto, abId].forEach((el, n) => { el.style.opacity = M ? f2(seg(i, n * .15, n * .15 + .45)) : 1; });
+  });
+
+  // 11. «Escribime.»: las letras se juntan al entrar
+  const fin = $('.contacto .fin');
+  efecto(fin, top => {
+    const i = out(entra(top, .7));
+    fin.style.letterSpacing = `${(M * (1 - i) * .4).toFixed(3)}em`;
+    fin.style.opacity = M ? f2(.1 + .9 * i) : 1;
+  });
+
+  // Motor: suavizado por tiempo (se siente igual a 60 o a 120 Hz); lo que está lejos de pantalla no se toca
+  let sy = scrollY, raf = 0, last = 0;
+  function pintar(todo) {
+    const lag = scrollY - sy;
+    for (const f of fx) {
+      const r = f.el.getBoundingClientRect(), top = r.top + lag;
+      if (!todo && (top + r.height < -vh * .5 || top > vh * 1.5)) continue;
+      f.run(top, r.height);
+    }
   }
-  // Suavizado por tiempo (no por frame): se siente igual a 60 o a 120 Hz
-  let cur = target(), tgt = cur, raf = 0, last = 0;
-  function tick(t) {
+  function frame(t) {
     const dt = last ? Math.min(.1, (t - last) / 1000) : 1 / 60;
     last = t;
-    cur += (tgt - cur) * (reduce ? 1 : 1 - Math.exp(-dt / .15));
-    if (Math.abs(tgt - cur) < .0004) cur = tgt;
-    render(cur);
-    if (cur === tgt) { raf = 0; last = 0; } else raf = requestAnimationFrame(tick);
+    sy += (scrollY - sy) * (reduce ? 1 : 1 - Math.exp(-dt / .15));
+    if (Math.abs(scrollY - sy) < .5) sy = scrollY;
+    pintar(false);
+    if (sy !== scrollY) raf = requestAnimationFrame(frame); else { raf = 0; last = 0; }
   }
-  const onScroll = () => { tgt = target(); if (!raf) raf = requestAnimationFrame(tick); };
-  addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', onScroll);
-  render(cur);
-  // Tocar el sobre lo abre scrolleando hasta el final de la pista (es la misma animación)
-  env.addEventListener('click', () => scrollTo({ top: sb.offsetTop + range(), behavior: 'smooth' }));
-  q('#sb-skip').addEventListener('click', () => document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' }));
+  const mover = () => { if (!raf) raf = requestAnimationFrame(frame); };
+  function medir() {
+    vh = innerHeight;
+    armarArchivo();
+    medirHz();
+    medirPalabras();
+    pintar(true);
+  }
+  medir();
+  addEventListener('scroll', mover, { passive: true });
+  addEventListener('resize', () => { medir(); mover(); });
+  addEventListener('load', medir);
+  if (document.fonts) document.fonts.ready.then(medir);
+
+  // Tocar el sobre lo abre scrolleando hasta el final de su pista (es la misma animación)
+  env.addEventListener('click', () => scrollTo({ top: sb.offsetTop + pistaSobre(), behavior: 'smooth' }));
+  $('#sb-skip').addEventListener('click', () => hero.scrollIntoView({ behavior: 'smooth' }));
   // Un enlace directo a un proyecto (#/id) arranca con el sobre ya pasado
-  if (location.hash.startsWith('#/')) scrollTo(0, sb.offsetTop + sb.offsetHeight);
+  if (location.hash.startsWith('#/')) { scrollTo(0, sb.offsetTop + sb.offsetHeight); sy = scrollY; pintar(true); }
 })();
 </script>
 </body>
