@@ -4,7 +4,7 @@
  * borrador nuestro: validar con ella.
  * imgs: [ruta sin extensión, ancho, alto] → existe ruta + '.webp' (2000px) y ruta + '-s.webp' (720px).
  * videos: [mp4, poster, ancho, alto]. anioAConfirmar: el año no salió de la metadata, es estimado.
- * foto vacía: Ailen todavía no mandó la foto para «About me». */
+ * foto: la de «About me» (variante C), recortada a 3:4 de Tezza-7474 (llegó el 2026-11-13). */
 window.PERFIL = {
  "nombre": "Ailen Rausch",
  "oficio": "Diseñadora de indumentaria y textil · Estilista · Fotógrafa",
@@ -19,7 +19,7 @@ window.PERFIL = {
  "instagram": "ailen.rausch",
  "telefono": "+54 9 343 470-5724",
  "whatsapp": "5493434705724",
- "foto": ""
+ "foto": "img/perfil/ailen.webp"
 };
 window.SERVICIOS = [
  {
