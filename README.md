@@ -3,7 +3,7 @@
 Portfolio de Ailen Rausch (estilismo, diseño de indumentaria y fotografía de moda, Córdoba):
 https://ailenrauschportfolio.com.ar
 
-Sitio estático, sin build: GitHub Pages desde la raíz de `main`, con el dominio en Cloudflare (DNS, sin proxy).
+Sitio estático, sin build: GitHub Pages desde la raíz de `main` (archivo `CNAME`), con el dominio en Cloudflare (con proxy).
 
 - `index.html` — la web: la variante C «Campaña», inspirada en Paloma Wool y Art Partner
 - `c-campana/` — redirige a la raíz (era la dirección de la vista previa)
