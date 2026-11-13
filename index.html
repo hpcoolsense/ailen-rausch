@@ -237,11 +237,11 @@
   /* Mobile: aditivo */
   @media (max-width: 820px) {
     :root { --pad: 16px; }
-    .nav { justify-content: flex-start; gap: 14px; padding: 14px 16px 0 40px; font-size: 14px; overflow-x: auto; white-space: nowrap; }
+    .nav { justify-content: flex-start; gap: 14px; padding: 8px 16px 22px 40px; font-size: 14px; overflow-x: auto; white-space: nowrap;
+           background: linear-gradient(rgba(14,13,12,.92) 45%, rgba(14,13,12,0)); pointer-events: none; } /* velo: el menú no se pisa con el texto */
+    .nav a { padding-block: 6px; pointer-events: auto; }
     .nav .r { display: none; }
     .side { left: 10px; top: 14px; font-size: 14px; }
-    .hero { grid-template-columns: 1fr; }
-    .hero .col:not(:nth-child(2)) { display: none; }
     .hero .cap { padding-left: 40px; }
     .hero .cap span { display: none; }
     .intro { padding: 12vh 22px 10vh; }
@@ -622,7 +622,13 @@
     if (acols.length === n) return;
     acols = Array.from({ length: n }, () => Object.assign(document.createElement('div'), { className: 'acol' }));
     arch.replaceChildren(...acols);
-    cards.forEach((c, i) => acols[i % n].appendChild(c.el));
+    // en celular, cada ficha va a la columna más corta (según la proporción de su foto) para que terminen parejas
+    const alto = Array(n).fill(0);
+    cards.forEach((c, i) => {
+      const k = n === 2 ? alto.indexOf(Math.min(...alto)) : i % n, im = $('img', c.el);
+      acols[k].appendChild(c.el);
+      alto[k] += im.getAttribute('height') / im.getAttribute('width') + .05;
+    });
   };
   efecto(arch, (top, h) => {
     const c = clamp((top + h / 2 - vh / 2) / (h / 2 + vh / 2), -1, 1);
