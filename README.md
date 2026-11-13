@@ -1,12 +1,15 @@
-# Ailen Rausch — variantes de web
+# Ailen Rausch — web
 
-Tres propuestas de portfolio para Ailen Rausch (estilismo, diseño de indumentaria y fotografía de moda, Córdoba).
+Portfolio de Ailen Rausch (estilismo, diseño de indumentaria y fotografía de moda, Córdoba):
+https://ailenrauschportfolio.com.ar
 
-- `a-indice/` — inspirada en la web de ejemplo de Lou Vacquié
-- `b-revista/` — inspirada en 032c
-- `c-campana/` — inspirada en Paloma Wool y Art Partner
+Sitio estático, sin build: GitHub Pages desde la raíz de `main`, con el dominio en Cloudflare (DNS, sin proxy).
 
-Las tres leen los textos e imágenes de `assets/proyectos.js`. Sitio estático, sin build: se publica con GitHub Pages
-desde la raíz de `main`. Las páginas llevan `noindex` mientras sean vistas previas.
+- `index.html` — la web: la variante C «Campaña», inspirada en Paloma Wool y Art Partner
+- `c-campana/` — redirige a la raíz (era la dirección de la vista previa)
+- `variantes/` — portada para comparar las tres propuestas (`noindex`)
+- `a-indice/` y `b-revista/` — las otras dos propuestas, como vistas previas (`noindex`)
+
+Todas leen los textos e imágenes de `assets/proyectos.js`.
 
 Fotos y videos: © Ailen Rausch y fotógrafos de cada producción.
